@@ -2,7 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Server/Main.cs">
     <Files>
-      <File FileName="Server/Main.cs" Line="26" Column="4" />
+      <File FileName="Server/Main.cs" Line="9" Column="24" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -15,12 +15,7 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/home/nathan/Projects/Server/Server/Main.cs" line="61" />
-      <Breakpoint file="/home/nathan/Projects/Server/Server/Main.cs" line="60" />
-      <Breakpoint file="/home/nathan/Projects/Server/Server/Main.cs" line="62" />
-      <Breakpoint file="/home/nathan/Projects/Server/Server/Main.cs" line="58" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

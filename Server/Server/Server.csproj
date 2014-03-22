@@ -37,6 +37,12 @@
     </Reference>
     <Reference Include="System.Dynamic" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="IronPython">
+      <HintPath>..\..\..\Downloads\IronPython-2.7.4\IronPython.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Scripting">
+      <HintPath>..\..\..\Downloads\IronPython-2.7.4\Microsoft.Scripting.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
