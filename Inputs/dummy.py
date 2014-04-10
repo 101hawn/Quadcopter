@@ -25,5 +25,5 @@ while 1==1:
 	sys.stdout.flush()
 
 	#give time back to cpu
-	sleep(1)
+	sleep(2)
 	

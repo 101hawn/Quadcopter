@@ -1,0 +1,26 @@
+import clr
+clr.AddReference("System")
+clr.AddReference("Newtonsoft.Json")
+from System.Net import *
+from System.Net.Sockets import *
+from System.Text import *
+from Newtonsoft.Json import *
+from System.Threading import *
+
+
+endpoint = IPEndPoint(IPAddress.Parse("127.0.0.1"),5555)
+
+listener = TcpListener(endpoint)
+
+listener.Start()
+clients = []
+
+def PollForClients():
+	while 1==1:
+		clients.Add(listener.AcceptTcpClient())
+
+def Update(Input,Output):
+	for client in clients:		
+		client.Client.Send(Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(Input)+"\n"))
+
+Thread(ThreadStart(PollForClients)).Start()
