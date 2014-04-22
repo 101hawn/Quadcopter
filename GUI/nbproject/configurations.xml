@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="94">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>LoadingRender.h</itemPath>
+      <itemPath>MainRender.h</itemPath>
+      <itemPath>Renderer.h</itemPath>
+      <itemPath>SettingsRender.h</itemPath>
+      <itemPath>Transition.h</itemPath>
+      <itemPath>WindowsExtensions.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+      <itemPath>BS.TTF</itemPath>
+      <itemPath>loading.png</itemPath>
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>LoadingRender.cpp</itemPath>
+      <itemPath>MainRender.cpp</itemPath>
+      <itemPath>Renderer.cpp</itemPath>
+      <itemPath>SettingsRender.cpp</itemPath>
+      <itemPath>Transition.cpp</itemPath>
+      <itemPath>main.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <commandLine>`pkg-config --cflags --libs sfml-all` -std=c++11</commandLine>
+        </ccTool>
+        <linkerTool>
+          <commandLine>`pkg-config --cflags --libs glu gl` -std=c++11</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="BS.TTF" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="LoadingRender.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="LoadingRender.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MainRender.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MainRender.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Renderer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Renderer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SettingsRender.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="SettingsRender.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Transition.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Transition.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="WindowsExtensions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="loading.png" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="BS.TTF" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="LoadingRender.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="LoadingRender.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MainRender.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MainRender.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Renderer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Renderer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SettingsRender.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="SettingsRender.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Transition.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Transition.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="WindowsExtensions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="loading.png" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Windows" type="1">
+      <toolsSet>
+        <compilerSet>Mingw32|GNU</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <commandLine>-std=c++11 -IWindows/include -I/usr/i686-w64-mingw32/sys-root/mingw/include/ -static</commandLine>
+        </ccTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>Windows/lib</pElem>
+          </linkerAddLib>
+          <linkerDynSerch>
+            <pElem>Windows</pElem>
+          </linkerDynSerch>
+          <linkerLibItems>
+            <linkerLibLibItem>sfml-window</linkerLibLibItem>
+            <linkerLibLibItem>sfml-audio</linkerLibLibItem>
+            <linkerLibLibItem>sfml-network</linkerLibLibItem>
+            <linkerLibLibItem>sfml-main</linkerLibLibItem>
+            <linkerLibLibItem>sfml-graphics</linkerLibLibItem>
+            <linkerLibLibItem>sfml-system</linkerLibLibItem>
+          </linkerLibItems>
+          <commandLine>-std=c++11 -lopengl32 -static -static-libgcc -static-libstdc++</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="BS.TTF" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="LoadingRender.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="LoadingRender.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MainRender.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MainRender.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Renderer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Renderer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SettingsRender.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="SettingsRender.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Transition.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Transition.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="WindowsExtensions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="loading.png" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
