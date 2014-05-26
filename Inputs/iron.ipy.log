@@ -63,3 +63,103 @@ at System.Dynamic.UpdateDelegates.UpdateAndExecute1<object, object> (System.Runt
 at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x000a4, 0x00335>
 at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <IL 0x00039, 0x0011a>
 at (wrapper dynamic-method) object.Update$2 (System.Runtime.CompilerServices.Closure,IronPython.Runtime.PythonFunction,object,object) <IL 0x00058, 0x00289>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'z'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x00273>
+at Microsoft.Scripting.Interpreter.DynamicInstruction`2<object, object>.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <0x000c0>
+at Microsoft.Scripting.Interpreter.Interpreter.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <IL 0x0001a, 0x0012f>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'y'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x00273>
+at Microsoft.Scripting.Interpreter.DynamicInstruction`2<object, object>.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <0x000c0>
+at Microsoft.Scripting.Interpreter.Interpreter.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <IL 0x0001a, 0x0012f>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'Yaw'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x0026d>
+at System.Dynamic.UpdateDelegates.UpdateAndExecute1<object, object> (System.Runtime.CompilerServices.CallSite,object) <0x007dd>
+at Microsoft.Scripting.Interpreter.DynamicInstruction`2<object, object>.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <0x000c0>
+at Microsoft.Scripting.Interpreter.Interpreter.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <IL 0x0001a, 0x0012f>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'Yaw'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x0026d>
+at Microsoft.Scripting.Interpreter.DynamicInstruction`2<object, object>.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <0x000c0>
+at Microsoft.Scripting.Interpreter.Interpreter.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <IL 0x0001a, 0x0012f>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'Roll'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x00273>
+at Microsoft.Scripting.Interpreter.DynamicInstruction`2<object, object>.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <0x000c0>
+at Microsoft.Scripting.Interpreter.Interpreter.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <IL 0x0001a, 0x0012f>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'Altitude'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x00273>
+at Microsoft.Scripting.Interpreter.DynamicInstruction`2<object, object>.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <0x000c0>
+at Microsoft.Scripting.Interpreter.Interpreter.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <IL 0x0001a, 0x0012f>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'Pitch'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x00273>
+at Microsoft.Scripting.Interpreter.DynamicInstruction`2<object, object>.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <0x000c0>
+at Microsoft.Scripting.Interpreter.Interpreter.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <IL 0x0001a, 0x0012f>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'Yaw'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x0026d>
+at System.Dynamic.UpdateDelegates.UpdateAndExecute1<object, object> (System.Runtime.CompilerServices.CallSite,object) <0x00481>
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <IL 0x00039, 0x0011a>
+at System.Dynamic.UpdateDelegates.UpdateAndExecute2<object, IronPython.Runtime.CodeContext, object> (System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <0x00844>
+at (wrapper delegate-invoke) <Module>.invoke_object__this___Func`4<CallSite, object, CodeContext, object>_CallSite_object_CodeContext (System.Func`4<System.Runtime.CompilerServices.CallSite, object, IronPython.Runtime.CodeContext, object>,System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <IL 0x0005a, 0x001cd>
+at Microsoft.Scripting.Interpreter.FuncCallInstruction`5<System.Func`4<System.Runtime.CompilerServices.CallSite, object, IronPython.Runtime.CodeContext, object>, System.Runtime.CompilerServices.CallSite, object, IronPython.Runtime.CodeContext, object>.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <0x00194>
+at Microsoft.Scripting.Interpreter.Interpreter.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <IL 0x0001a, 0x0012f>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'Yaw'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x0026d>
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <IL 0x00039, 0x0011a>
+at (wrapper dynamic-method) object.Update$2 (System.Runtime.CompilerServices.Closure,IronPython.Runtime.PythonFunction,object,object) <IL 0x00058, 0x0028c>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'Roll'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x00273>
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <IL 0x00039, 0x0011a>
+at (wrapper dynamic-method) object.Update$2 (System.Runtime.CompilerServices.Closure,IronPython.Runtime.PythonFunction,object,object) <IL 0x000ad, 0x00487>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'Yaw'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x0026d>
+at System.Dynamic.UpdateDelegates.UpdateAndExecute1<object, object> (System.Runtime.CompilerServices.CallSite,object) <0x00481>
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <IL 0x00039, 0x0011a>
+at System.Dynamic.UpdateDelegates.UpdateAndExecute2<object, IronPython.Runtime.CodeContext, object> (System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <0x00844>
+at (wrapper delegate-invoke) <Module>.invoke_object__this___Func`4<CallSite, object, CodeContext, object>_CallSite_object_CodeContext (System.Func`4<System.Runtime.CompilerServices.CallSite, object, IronPython.Runtime.CodeContext, object>,System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <IL 0x0005a, 0x001d1>
+at Microsoft.Scripting.Interpreter.FuncCallInstruction`5<System.Func`4<System.Runtime.CompilerServices.CallSite, object, IronPython.Runtime.CodeContext, object>, System.Runtime.CompilerServices.CallSite, object, IronPython.Runtime.CodeContext, object>.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <0x00194>
+at Microsoft.Scripting.Interpreter.Interpreter.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <IL 0x0001a, 0x0012f>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'Yaw'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x00273>
+at System.Dynamic.UpdateDelegates.UpdateAndExecute1<object, object> (System.Runtime.CompilerServices.CallSite,object) <0x007dd>
+at Microsoft.Scripting.Interpreter.DynamicInstruction`2<object, object>.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <0x000c0>
+at Microsoft.Scripting.Interpreter.Interpreter.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <IL 0x0001a, 0x0012f>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'Yaw'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x00273>
+at Microsoft.Scripting.Interpreter.DynamicInstruction`2<object, object>.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <0x000c0>
+at Microsoft.Scripting.Interpreter.Interpreter.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <IL 0x0001a, 0x0012f>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'Altitude'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x00273>
+at System.Dynamic.UpdateDelegates.UpdateAndExecute1<object, object> (System.Runtime.CompilerServices.CallSite,object) <0x007dd>
+at Microsoft.Scripting.Interpreter.DynamicInstruction`2<object, object>.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <0x000c0>
+at Microsoft.Scripting.Interpreter.Interpreter.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <IL 0x0001a, 0x0012f>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'Altitude'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x00273>
+at System.Dynamic.UpdateDelegates.UpdateAndExecute1<object, object> (System.Runtime.CompilerServices.CallSite,object) <0x00481>
+at Microsoft.Scripting.Interpreter.DynamicInstruction`2<object, object>.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <0x000c0>
+at Microsoft.Scripting.Interpreter.Interpreter.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <IL 0x0001a, 0x0012f>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'Yaw'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x00273>
+at System.Dynamic.UpdateDelegates.UpdateAndExecute1<object, object> (System.Runtime.CompilerServices.CallSite,object) <0x00481>
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <IL 0x00039, 0x0011a>
+at System.Dynamic.UpdateDelegates.UpdateAndExecute2<object, IronPython.Runtime.CodeContext, object> (System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <0x00844>
+at (wrapper delegate-invoke) <Module>.invoke_object__this___Func`4<CallSite, object, CodeContext, object>_CallSite_object_CodeContext (System.Func`4<System.Runtime.CompilerServices.CallSite, object, IronPython.Runtime.CodeContext, object>,System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <IL 0x0005a, 0x001d1>
+at Microsoft.Scripting.Interpreter.FuncCallInstruction`5<System.Func`4<System.Runtime.CompilerServices.CallSite, object, IronPython.Runtime.CodeContext, object>, System.Runtime.CompilerServices.CallSite, object, IronPython.Runtime.CodeContext, object>.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <0x00194>
+at Microsoft.Scripting.Interpreter.Interpreter.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <IL 0x0001a, 0x0012f>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'Yaw'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x00273>
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <IL 0x00039, 0x0011a>
+at (wrapper dynamic-method) object.Update$2 (System.Runtime.CompilerServices.Closure,IronPython.Runtime.PythonFunction,object,object) <IL 0x00058, 0x0028c>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'Altitude'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x00273>
+at System.Dynamic.UpdateDelegates.UpdateAndExecute1<object, object> (System.Runtime.CompilerServices.CallSite,object) <0x00481>
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <IL 0x00039, 0x0011a>
+at System.Dynamic.UpdateDelegates.UpdateAndExecute2<object, IronPython.Runtime.CodeContext, object> (System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <0x00844>
+at (wrapper delegate-invoke) <Module>.invoke_object__this___Func`4<CallSite, object, CodeContext, object>_CallSite_object_CodeContext (System.Func`4<System.Runtime.CompilerServices.CallSite, object, IronPython.Runtime.CodeContext, object>,System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <IL 0x0005a, 0x001d1>
+at Microsoft.Scripting.Interpreter.FuncCallInstruction`5<System.Func`4<System.Runtime.CompilerServices.CallSite, object, IronPython.Runtime.CodeContext, object>, System.Runtime.CompilerServices.CallSite, object, IronPython.Runtime.CodeContext, object>.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <0x00194>
+at Microsoft.Scripting.Interpreter.Interpreter.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <IL 0x0001a, 0x0012f>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'Altitude'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x00273>
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <IL 0x00039, 0x0011a>
+at (wrapper dynamic-method) object.Update$2 (System.Runtime.CompilerServices.Closure,IronPython.Runtime.PythonFunction,object,object) <IL 0x0015b, 0x0082c>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'Pitch'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x00273>
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <IL 0x00039, 0x0011a>
+at (wrapper dynamic-method) object.Update$2 (System.Runtime.CompilerServices.Closure,IronPython.Runtime.PythonFunction,object,object) <IL 0x00103, 0x0065e>

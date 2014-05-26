@@ -1,22 +1,25 @@
 import json
 import sys
 from time import sleep
+import Library #Quadcopter helper library
 
 #init variables
 i = 1
 
 
 #control loop
-while 1==1:
+while Library.alive():
 	#update variables
 	i+=1
 	
 	#create an array
 	a = {}
 	#add data to array for transformation to c#
-	a["x"] = 1+i
-	a["y"] = 2+i
-	a["z"] = 3+i
+	a["Roll"] = 0
+	a["Yaw"] = 0
+	a["Pitch"] = 0
+	a["Altitude"] = 1
+	a["Altitude_timeout"] = 3000
 	
 	#print the json dumps to stdout
 	print(json.dumps(a))
