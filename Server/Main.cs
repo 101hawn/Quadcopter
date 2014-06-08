@@ -26,14 +26,8 @@ namespace Server
 			
 
 			List<string> ports = new List<string>();
-			ports.AddRange(SerialPort.GetPortNames());
-			if(!ports.Contains("/dev/ACM0"))
-			{
-				Console.WriteLine("Please connect arduino");
-				Environment.Exit(1);	
-			}
+
 			ScriptManager inputs = new ScriptManager();
-			
 			System.Diagnostics.Process.GetCurrentProcess().Exited+= delegate {
 				inputs.Quit();
 				Console.WriteLine("Exited");
@@ -41,10 +35,23 @@ namespace Server
 			
 		
 			
-			SerialPort port = new SerialPort("/dev/ACM0");
-			Stream outputstream = port.BaseStream;
+			//Stream outputstream = port.BaseStream;
 			//Stream outputstream = File.Open("dummy.output",FileMode.OpenOrCreate);
+			string arduino = "";
+			foreach(string file in Directory.EnumerateFiles("/dev/"))
+			{
+				if(file.Contains("ttyACM"))
+					arduino = file;
+				
+			}
+			if(arduino == "")
+			{
+				Console.WriteLine("Please connect arduino");
+				Environment.Exit(1);	
+			}
 			
+			Stream outputstream = File.Open(arduino,FileMode.Open);
+			//Stream outputstream = Console.OpenStandardOutput();
 			Thread.Sleep(5000);
 			
 			DateTime time = DateTime.Now;
@@ -54,7 +61,7 @@ namespace Server
 				
 				Output output = inputs.Update();
 				output.Write(outputstream);
-				
+				Console.Write(outputstream.ReadByte());
 				TimeSpan difference = time-DateTime.Now;
 				if(difference.TotalMilliseconds>0)
 				Thread.Sleep(difference);
@@ -67,6 +74,8 @@ namespace Server
 			
 			
 		}
+		
+		
 		
 	}
 	public class ScriptManager
@@ -130,7 +139,10 @@ namespace Server
 					info.RedirectStandardOutput = true;
 					info.UseShellExecute = false;
 					info.UserName = "root";
-					info.EnvironmentVariables.Add("Parent",Process.GetCurrentProcess().Id.ToString());
+					if(info.EnvironmentVariables.ContainsKey("Parent"))
+					   info.EnvironmentVariables["Parent"] = Process.GetCurrentProcess().Id.ToString();
+					else
+					   info.EnvironmentVariables.Add("Parent",Process.GetCurrentProcess().Id.ToString());
 					
 					System.Diagnostics.Process p = System.Diagnostics.Process.Start(info);
 					
@@ -175,7 +187,7 @@ namespace Server
 				IDictionary<string,object> properties = sender as IDictionary<string,object>;
 				if(properties.ContainsKey(e.PropertyName))
 				  {
-					double timeout = 1000;
+					double timeout = 10000;
 					if(properties.ContainsKey(e.PropertyName+"_timeout"))
 					{
 						object timeoutobject = properties[e.PropertyName+"_timeout"];
@@ -332,6 +344,8 @@ namespace Server
 		
 		public void Write(Stream str)
 		{
+			Roll.Result = 500;
+			Roll.Kp = 1;
 			
 			List<byte> bytes = new List<byte>();
 			bytes.Add(0x00);			
@@ -346,16 +360,24 @@ namespace Server
 			bytes.Add(0x00);			
 			bytes.Add(0x14);
 			bytes.AddRange(Altitude.Serialize());
-				
+
+			try
+			{
 			str.Write(bytes.ToArray(),0,bytes.Count);
+			}
+			catch(IOException)
+			{
+				
+			}
 		}
 	}
 	public class Value
 	{
-		public float Min
+		public float Min	
 		{
 			set
 			{
+				
 				if(value<=max)
 				{
 					if(value>min)
@@ -430,6 +452,51 @@ namespace Server
 			
 			
 		}
+		private float kp = float.NaN;
+		public float Kp
+		{
+			set
+			{
+				if(float.IsNaN(kp))
+				{
+					kp = value;
+				
+					
+				}
+				
+			}
+			
+		}
+		private float ki = float.NaN;
+		public float Ki
+		{
+			set
+			{
+				if(float.IsNaN(ki))
+				{
+					ki = value;
+				
+					
+				}
+				
+			}
+			
+		}
+		private float kd = float.NaN;
+		public float Kd
+		{
+			set
+			{
+				if(float.IsNaN(kd))
+				{
+					kd = value;
+				
+					
+				}
+				
+			}
+			
+		}		
 		
 		public Value()
 		{
@@ -451,13 +518,62 @@ namespace Server
 		{
 			
 				
-			String str = Convert.ToBase64String(BitConverter.GetBytes((Int64)Result));
+			String str = Convert.ToBase64String(BitConverter.GetBytes((Int16)Result));
+			List<byte> bytes = new List<byte>();
+			bytes.Add(0x00);
+			bytes.Add(0x27);
+			foreach(char c in str)
+			{
+				bytes.AddRange(BitConverter.GetBytes(c));
+
+			}
+			bytes.Add(0x00);
+			bytes.Add(0x19);
+			
+			//
+			kp=1;
+			ki=0;
+			kd=59.3f;
+			//
+			
+			
+			if(!float.IsNaN(kp))
+			{
+				bytes.Add(0x00);			
+				bytes.Add(0x24);
+				bytes.AddRange(Serialize(1000,kp));
+			}
+			if(!float.IsNaN(ki))
+			{
+				bytes.Add(0x00);			
+				bytes.Add(0x25);
+				bytes.AddRange(Serialize(1000,ki));
+			}
+			if(!float.IsNaN(kd))
+			{
+				bytes.Add(0x00);			
+				bytes.Add(0x26);
+				bytes.AddRange(Serialize(1000,kd));
+			}
+			
+
+			return bytes.ToArray();
+			
+			
+		}
+		byte[] Serialize(int K, float f)
+		{
+			
+				
+			String str = Convert.ToBase64String(BitConverter.GetBytes((Int16)(f*K)));
 			List<byte> bytes = new List<byte>();
 			foreach(char c in str)
 			{
 				bytes.AddRange(BitConverter.GetBytes(c));
 				
 			}
+			bytes.Add(0x00);
+			bytes.Add(0x19);
 			return bytes.ToArray();
 			
 			
@@ -534,6 +650,7 @@ namespace Server
 		
 		
 	}
+
 	
 
 
