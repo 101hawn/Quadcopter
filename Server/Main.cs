@@ -194,7 +194,7 @@ namespace Server
 					
 						
 					
-					ProcessStartInfo info = new ProcessStartInfo("python",file);
+					ProcessStartInfo info = new ProcessStartInfo("python2.7",file);
 					
 					info.WorkingDirectory = Directory.GetCurrentDirectory();
 					info.RedirectStandardOutput = true;
