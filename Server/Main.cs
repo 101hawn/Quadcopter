@@ -36,7 +36,25 @@ namespace Server
 			//Stream outputstream = port.BaseStream;
 			//Stream outputstream = File.Open("dummy.output",FileMode.OpenOrCreate);
 			string arduino = "";
-			foreach(string file in Directory.EnumerateFiles("/dev/"))
+			IEnumerable<string> root = Directory.EnumerateDirectories("/");
+			string dev = "";
+			foreach(string file in root)
+			{
+				if(file.Contains("dev"))
+				   dev = file;
+			}
+			if(dev == "")
+			{
+				Console.WriteLine("Could not find dev");
+				Console.WriteLine("Found folders:");
+				Console.WriteLine(root.ToString());
+				
+				Environment.Exit(1);
+				
+			}
+				   
+			
+			foreach(string file in Directory.EnumerateFiles(dev))
 			{
 				if(file.Contains("ttyACM"))
 					arduino = file;
