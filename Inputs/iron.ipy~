@@ -1,0 +1,9 @@
+def Update(Input,Output):
+	Output.Yaw.Result = Input.Yaw
+	Output.Roll.Result = Input.Roll
+	Output.Pitch.Result = Input.Pitch
+	Output.Altitude.Result = Input.Altitude
+	Output.P.Result = Input.Kp
+	Output.I.Result = Input.Ki
+	Output.D.Result = Input.Kd
+	

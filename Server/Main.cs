@@ -25,8 +25,6 @@ namespace Server
 		{
 			
 
-			List<string> ports = new List<string>();
-
 			ScriptManager inputs = new ScriptManager();
 			System.Diagnostics.Process.GetCurrentProcess().Exited+= delegate {
 				inputs.Quit();
@@ -49,8 +47,18 @@ namespace Server
 				Console.WriteLine("Please connect arduino");
 				Environment.Exit(1);	
 			}
-			
-			Stream outputstream = File.Open(arduino,FileMode.Open);
+			Stream outputstream= null;
+			try
+			{
+			outputstream =  File.Open(arduino,FileMode.Open);
+				
+			}
+			catch(IOException)
+			{
+				Console.WriteLine("Failed to open "+arduino + " for reading");
+				Environment.Exit(1);
+				
+			}
 			//Stream outputstream = Console.OpenStandardOutput();
 			Thread.Sleep(5000);
 			

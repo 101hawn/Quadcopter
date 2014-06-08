@@ -1,7 +1,22 @@
 def Update(Input,Output):
 	Output.Yaw.Result = Input.Yaw
-	Output.Roll.Result = Input.Roll
+	Output.Yaw.Kp = Input.YKp
+	Output.Yaw.Ki = Input.YKi
+	Output.Yaw.Kd = Input.YKd
+
+	#Output.Roll.Result = Input.Roll
+	#Output.Roll.Kp = Input.RKp
+	#Output.Roll.Ki = Input.RKi
+	#Output.Roll.Kd = Input.RKd
+
 	Output.Pitch.Result = Input.Pitch
+	Output.Pitch.Kp = Input.PKp
+	Output.Pitch.Ki = Input.PKi
+	Output.Pitch.Kd = Input.PKd
+
 	Output.Altitude.Result = Input.Altitude
+	Output.Altitude.Kp = Input.AKp
+	Output.Altitude.Ki = Input.AKi
+	Output.Altitude.Kd = Input.AKd
 
 	

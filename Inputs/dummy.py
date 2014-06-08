@@ -16,8 +16,11 @@ while Library.alive():
 	a = {}
 	#add data to array for transformation to c#
 	a["Roll"] = 0
+	a["Roll_timeout"] = 1000
 	a["Yaw"] = 0
+	a["Yaw_timeout"] = 1000
 	a["Pitch"] = 0
+	a["Pitch_timeout"] = 1000
 	a["Altitude"] = 1
 	a["Altitude_timeout"] = 3000
 	

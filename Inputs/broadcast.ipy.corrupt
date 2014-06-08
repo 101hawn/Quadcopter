@@ -8,6 +8,7 @@ from Newtonsoft.Json import *
 from System.Threading import *
 
 
+
 endpoint = IPEndPoint(IPAddress.Parse("127.0.0.1"),5555)
 
 listener = TcpListener(endpoint)
@@ -20,7 +21,10 @@ def PollForClients():
 		clients.Add(listener.AcceptTcpClient())
 
 def Update(Input,Output):
-	for client in clients:		
-		client.Client.Send(Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(Input)+"\n"))
+	for client in clients:
+		if client.Client.Connected:		
+			client.Client.Send(Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(Input)+"\n"))
+		else:
+			clients.remove(client)
 
 Thread(ThreadStart(PollForClients)).Start()
