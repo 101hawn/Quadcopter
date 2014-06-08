@@ -192,6 +192,9 @@ void update()
 void loop() {
   fetchcommands();  
   update();
+  Serial.println(roll.input);
+  Serial.println(roll.setpoint);  
+  
   
   
 }

@@ -21,8 +21,11 @@ namespace Server
 {
 	class MainClass
 	{	
+		static SerialPort port = new SerialPort();
 		public static void Main (string[] args)
 		{
+			
+
 			
 
 			ScriptManager inputs = new ScriptManager();
@@ -76,20 +79,35 @@ namespace Server
 				Console.WriteLine("Please connect arduino");
 				Environment.Exit(1);	
 			}
-			Stream outputstream= null;
-			try
+
+
+			if(!port.IsOpen)
 			{
-			outputstream =  File.Open(arduino,FileMode.Open);
+				port.WriteBufferSize = 2000;
+				port.WriteTimeout = 1000;
+				port.BaudRate = 9600;
+				port.PortName = arduino;
+				port.RtsEnable = true;
+				port.Open();				
+				port.DataReceived+= DataRecieved;
 				
+
+
+			
 			}
-			catch(IOException)
+			else
 			{
 				Console.WriteLine("Failed to open "+arduino + " for reading");
 				Environment.Exit(1);
-				
 			}
-			//Stream outputstream = Console.OpenStandardOutput();
+			
+				
+			
+		
+			
+			
 			Thread.Sleep(5000);
+			
 			
 			DateTime time = DateTime.Now;
 			while(true)
@@ -97,8 +115,9 @@ namespace Server
 				time +=TimeSpan.FromMilliseconds(100);
 				
 				Output output = inputs.Update();
-				output.Write(outputstream);
-				Console.Write(outputstream.ReadByte());
+				output.Write(port);
+				while(port.BytesToRead>0)
+					Console.Write((char)port.ReadChar());
 				TimeSpan difference = time-DateTime.Now;
 				if(difference.TotalMilliseconds>0)
 				Thread.Sleep(difference);
@@ -110,6 +129,11 @@ namespace Server
 			
 			
 			
+		}
+
+		static void DataRecieved (object sender, SerialDataReceivedEventArgs e)
+		{
+			Console.WriteLine((char)port.ReadChar());
 		}
 		
 		
@@ -224,7 +248,7 @@ namespace Server
 				IDictionary<string,object> properties = sender as IDictionary<string,object>;
 				if(properties.ContainsKey(e.PropertyName))
 				  {
-					double timeout = 10000;
+					double timeout = 1000;
 					if(properties.ContainsKey(e.PropertyName+"_timeout"))
 					{
 						object timeoutobject = properties[e.PropertyName+"_timeout"];
@@ -379,7 +403,7 @@ namespace Server
 		public Value Roll;
 		public Value Altitude;
 		
-		public void Write(Stream str)
+		public void Write(SerialPort port)
 		{
 			Roll.Result = 500;
 			Roll.Kp = 1;
@@ -398,14 +422,9 @@ namespace Server
 			bytes.Add(0x14);
 			bytes.AddRange(Altitude.Serialize());
 
-			try
-			{
-			str.Write(bytes.ToArray(),0,bytes.Count);
-			}
-			catch(IOException)
-			{
-				
-			}
+			
+			port.Write(bytes.ToArray(),0,bytes.Count);
+			
 		}
 	}
 	public class Value
