@@ -36,7 +36,18 @@ namespace Server
 			//Stream outputstream = port.BaseStream;
 			//Stream outputstream = File.Open("dummy.output",FileMode.OpenOrCreate);
 			string arduino = "";
-			IEnumerable<string> root = Directory.EnumerateDirectories("/");
+			IEnumerable<string> root = new string[]{""};
+			try
+			{
+				
+				root = Directory.EnumerateDirectories("/");
+			}
+			catch(IOException)
+			{
+				Console.WriteLine("Cannot access root drive");
+				Environment.Exit(1);
+				
+			}
 			string dev = "";
 			foreach(string file in root)
 			{
