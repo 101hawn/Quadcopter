@@ -2,11 +2,6 @@
 #include <Servo.h>
 #include <Base64.h>
 #include <PID_v1.h>
-#include <Wire.h>
-#include <Adafruit_Sensor.h>
-#include <Adafruit_LSM303_U.h>
-#include <Adafruit_BMP085_U.h>
-#include <Adafruit_10DOF.h>
 
 #define maxcommandlen 12
 
@@ -172,14 +167,14 @@ void setup() {
   pitch.pid->SetMode(AUTOMATIC);
   altitude.pid->SetMode(AUTOMATIC);
   
-  franco.attach(9);
+  franco.attach(6);
   flavio.attach(7);
-  //blake.attach(3);
-  brad.attach(8);
+  blake.attach(8);
+  brad.attach(9);
   
   franco.write(0); 
   flavio.write(0);
- // blake.write(0);
+  blake.write(0);
   brad.write(0);
   Serial.begin(9600);
   delay(500);
@@ -197,8 +192,10 @@ void update()
 void loop() {
   fetchcommands();  
   update();
-  Serial.println(roll.input);
-  Serial.println(roll.setpoint);  
+  franco.write(roll.setpoint); 
+  flavio.write(altitude.setpoint);
+  blake.write(yaw.setpoint);
+  brad.write(pitch.setpoint);
   
   
   

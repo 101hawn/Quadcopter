@@ -19,7 +19,7 @@ end
 	command = gets()
 	input.puts(command)
 	puts @gots
-	@gots = ''
+	@gots = "	"
 	print ">>>"
 	end
 	@running = false
