@@ -529,3 +529,9 @@ at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServi
 at System.Dynamic.UpdateDelegates.UpdateAndExecute1<object, object> (System.Runtime.CompilerServices.CallSite,object) <0x00226>
 at Microsoft.Scripting.Interpreter.DynamicInstruction`2<object, object>.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <0x0009b>
 at Microsoft.Scripting.Interpreter.Interpreter.Run (Microsoft.Scripting.Interpreter.InterpretedFrame) <0x000be>
+System.MissingMemberException: 'ExpandoObject' object has no attribute 'YKp'
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x00080, 0x00273>
+at System.Dynamic.UpdateDelegates.UpdateAndExecute1<object, object> (System.Runtime.CompilerServices.CallSite,object) <0x007dd>
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object) <IL 0x000a4, 0x00335>
+at (wrapper dynamic-method) object.CallSite.Target (System.Runtime.CompilerServices.Closure,System.Runtime.CompilerServices.CallSite,object,IronPython.Runtime.CodeContext) <IL 0x00039, 0x0011a>
+at (wrapper dynamic-method) object.Update$2 (System.Runtime.CompilerServices.Closure,IronPython.Runtime.PythonFunction,object,object) <IL 0x000ad, 0x0048a>

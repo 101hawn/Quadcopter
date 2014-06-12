@@ -24,7 +24,33 @@ namespace Server
 		static SerialPort port = new SerialPort();
 		public static void Main (string[] args)
 		{
+			if(File.Exists("/tmp/Quadcopter.pid"))
+			{
+				string pidstr = File.ReadAllText("/tmp/Quadcopter.pid");
+				int pid;
+				
+				if(int.TryParse(pidstr,out pid)&& !ProcessExists(pid))
+				{
+					File.Delete("/tmp/Quadcopter.pid");
+
+				}
+				else
+				{
+					Console.WriteLine("File lock found ... Exiting");
+					Environment.Exit(2);
+					
+				}
+				
+			}
+				
+				
+				
+				//File.Create("/tmp/Quadcopter.pid");
+				
+			File.WriteAllText("/tmp/Quadcopter.pid",Process.GetCurrentProcess().Id.ToString());
 			
+				
+			   
 
 			
 
@@ -80,7 +106,6 @@ namespace Server
 				Environment.Exit(1);	
 			}
 
-
 			if(!port.IsOpen)
 			{
 				port.WriteBufferSize = 2000;
@@ -110,7 +135,8 @@ namespace Server
 			
 			
 			DateTime time = DateTime.Now;
-			while(true)
+			bool running = true;
+			while(!Environment.HasShutdownStarted)
 			{
 				time +=TimeSpan.FromMilliseconds(100);
 				
@@ -125,7 +151,7 @@ namespace Server
 			}
 			
 			
-			
+			inputs.Quit();
 			
 			
 			
@@ -134,6 +160,22 @@ namespace Server
 		static void DataRecieved (object sender, SerialDataReceivedEventArgs e)
 		{
 			Console.WriteLine((char)port.ReadChar());
+		}
+		static bool ProcessExists(int id)
+		{
+			try
+			{
+				Process.GetProcessById(id);
+				return true;
+			}
+			catch(Exception)
+			{
+				return false;
+				
+			}
+		
+			return false;
+			
 		}
 		
 		
@@ -170,9 +212,14 @@ namespace Server
 						{
 						controllers.Add(new Controller(source.Compile(),engine,priority,file+".log"));
 						}
-						catch(Exception)
+						catch(Exception e)
 						{
+							Console.WriteLine("Corruption!");
+							Console.WriteLine(e.ToString());
+							Console.WriteLine("In file: "+file);
+							Console.WriteLine("Moved to :"+file+".corrupt");
 							
+						
 							File.Move(file,file+".corrupt");	
 							
 							
