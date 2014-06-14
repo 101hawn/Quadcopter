@@ -21,7 +21,7 @@ namespace Server
 {
 	class MainClass
 	{	
-		static SerialPort port = new SerialPort();
+		
 		public static void Main (string[] args)
 		{
 			if(File.Exists("/tmp/Quadcopter.pid"))
@@ -45,7 +45,6 @@ namespace Server
 				
 				
 				
-				//File.Create("/tmp/Quadcopter.pid");
 				
 			File.WriteAllText("/tmp/Quadcopter.pid",Process.GetCurrentProcess().Id.ToString());
 			
@@ -100,50 +99,41 @@ namespace Server
 					arduino = file;
 				
 			}
+			OutputMode mode = null;			
 			if(arduino == "")
 			{
 				Console.WriteLine("Please connect arduino");
-				Environment.Exit(1);	
-			}
-
-			if(!port.IsOpen)
-			{
-				port.WriteBufferSize = 2000;
-				port.WriteTimeout = 1000;
-				port.BaudRate = 9600;
-				port.PortName = arduino;
-				port.RtsEnable = true;
-				port.Open();				
-				port.DataReceived+= DataRecieved;
-				
-
-
-			
+				Console.WriteLine("Continuing in debug mode");
+				mode = new OutputMode();
 			}
 			else
 			{
-				Console.WriteLine("Failed to open "+arduino + " for reading");
-				Environment.Exit(1);
+				
+				mode = new OutputMode(arduino);
+				
+				
 			}
+
+	
+
 			
+
+		
 				
 			
 		
 			
 			
-			Thread.Sleep(5000);
+			Thread.Sleep(3000);
 			
 			
 			DateTime time = DateTime.Now;
-			bool running = true;
 			while(!Environment.HasShutdownStarted)
 			{
 				time +=TimeSpan.FromMilliseconds(100);
 				
 				Output output = inputs.Update();
-				output.Write(port);
-				while(port.BytesToRead>0)
-					Console.Write((char)port.ReadChar());
+				output.Write(mode);
 				TimeSpan difference = time-DateTime.Now;
 				if(difference.TotalMilliseconds>0)
 				Thread.Sleep(difference);
@@ -157,10 +147,6 @@ namespace Server
 			
 		}
 
-		static void DataRecieved (object sender, SerialDataReceivedEventArgs e)
-		{
-			Console.WriteLine((char)port.ReadChar());
-		}
 		static bool ProcessExists(int id)
 		{
 			try
@@ -174,7 +160,6 @@ namespace Server
 				
 			}
 		
-			return false;
 			
 		}
 		
@@ -265,7 +250,7 @@ namespace Server
 					p.OutputDataReceived+= delegate(object sender, DataReceivedEventArgs e) {
 						try
 							{
-						if(e.Data!=null)
+						if(e.Data!=null&&e.Data!="")
 								JsonConvert.PopulateObject(e.Data,Quadcopter);
 						p.BeginOutputReadLine();
 							}
@@ -295,7 +280,7 @@ namespace Server
 				IDictionary<string,object> properties = sender as IDictionary<string,object>;
 				if(properties.ContainsKey(e.PropertyName))
 				  {
-					double timeout = 1000;
+					double timeout = 10000;
 					if(properties.ContainsKey(e.PropertyName+"_timeout"))
 					{
 						object timeoutobject = properties[e.PropertyName+"_timeout"];
@@ -450,11 +435,8 @@ namespace Server
 		public Value Roll;
 		public Value Altitude;
 		
-		public void Write(SerialPort port)
-		{
-			Roll.Result = 500;
-			Roll.Kp = 1;
-			
+		public void Write(OutputMode o)
+		{			
 			List<byte> bytes = new List<byte>();
 			bytes.Add(0x00);			
 			bytes.Add(0x11);
@@ -470,7 +452,7 @@ namespace Server
 			bytes.AddRange(Altitude.Serialize());
 
 			
-			port.Write(bytes.ToArray(),0,bytes.Count);
+			o.Write(bytes.ToArray(),0,bytes.Count);
 			
 		}
 	}
@@ -633,11 +615,7 @@ namespace Server
 			bytes.Add(0x00);
 			bytes.Add(0x19);
 			
-			//
-			kp=1;
-			ki=0;
-			kd=59.3f;
-			//
+		
 			
 			
 			if(!float.IsNaN(kp))
@@ -750,6 +728,43 @@ namespace Server
 		}
 				
 				
+		
+		
+	}
+	public class OutputMode
+	{
+		bool debug;
+		SerialPort port = new SerialPort();
+		
+		public OutputMode()
+		{
+			debug = true;
+		}
+		public OutputMode(string arduino)
+		{
+			debug = false;
+			
+			port.WriteBufferSize = 2000;
+			port.WriteTimeout = 1000;
+			port.BaudRate = 9600;
+			port.PortName = arduino;
+			port.RtsEnable = true;
+			port.Open();				
+		}
+			
+		public void Write(byte[] bytes,int start, int length)
+		{
+			if(!debug)
+			
+			{
+				port.Write(bytes,start,length);
+				
+				
+			}
+			
+			
+		}
+		
 		
 		
 	}
