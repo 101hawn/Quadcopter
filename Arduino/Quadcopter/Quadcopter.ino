@@ -192,10 +192,10 @@ void update()
 void loop() {
   fetchcommands();  
   update();
-  franco.write(roll.setpoint); 
-  flavio.write(altitude.setpoint);
-  blake.write(yaw.setpoint);
-  brad.write(pitch.setpoint);
+  franco.write(80); //roll.setpoint); 
+  flavio.write(80);//altitude.setpoint);
+  blake.write(80);//yaw.setpoint);
+  brad.write(80);//pitch.setpoint);
   
   
   
