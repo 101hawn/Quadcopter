@@ -151,7 +151,7 @@ namespace Server
 		{
 			try
 			{
-				Process.GetProcessById(id);
+				Process p = Process.GetProcessById(id);
 				return true;
 			}
 			catch(Exception)
@@ -250,7 +250,7 @@ namespace Server
 					p.OutputDataReceived+= delegate(object sender, DataReceivedEventArgs e) {
 						try
 							{
-						if(e.Data!=null&&e.Data!="")
+						if(e.Data!=null&&e.Data!=""&&e.Data!="exit")
 								JsonConvert.PopulateObject(e.Data,Quadcopter);
 						p.BeginOutputReadLine();
 							}
@@ -280,13 +280,13 @@ namespace Server
 				IDictionary<string,object> properties = sender as IDictionary<string,object>;
 				if(properties.ContainsKey(e.PropertyName))
 				  {
-					double timeout = 10000;
+					int timeout = 5000;
 					if(properties.ContainsKey(e.PropertyName+"_timeout"))
 					{
 						object timeoutobject = properties[e.PropertyName+"_timeout"];
 						
 					
-						double.TryParse(timeoutobject.ToString() ,out timeout);
+						int.TryParse(timeoutobject.ToString() ,out timeout);
 					
 					}
 					if(!timeouts.ContainsKey(e.PropertyName))
@@ -319,6 +319,7 @@ namespace Server
 				try
 				{
 				c.Run(Quadcopter,output);
+				Quadcopter.Running = true;
 				}
 				catch(Exception e)
 				{
@@ -696,9 +697,16 @@ namespace Server
 				DateTime now = DateTime.Now;
 				if((timeout-now).Duration().Milliseconds>10)
 				{
-					
+					try
+					{
 					Thread.Sleep(timeout-now);
-					
+					}
+					catch
+					{
+						
+					return;	
+					}
+		
 					
 					now = DateTime.Now;	
 					
@@ -706,7 +714,7 @@ namespace Server
 				
 				if(now>timeout)
 				{
-					dict.Remove(p);
+					//dict.Remove(p);
 					
 				}
 				else

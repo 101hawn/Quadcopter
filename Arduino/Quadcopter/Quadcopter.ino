@@ -265,13 +265,13 @@ void update()
   altitude.input = 0;
 
   roll.pid->Compute();
-  roll.pid->SetOutputLimits(0,179);
+  roll.pid->SetOutputLimits(-100,179);
   altitude.pid->Compute();
-  altitude.pid->SetOutputLimits(0,179);
+  altitude.pid->SetOutputLimits(-100,179);
   yaw.pid->Compute();
-  yaw.pid->SetOutputLimits(0,179);
+  yaw.pid->SetOutputLimits(-100,179);
   pitch.pid->Compute();
-  pitch.pid->SetOutputLimits(0,179);
+  pitch.pid->SetOutputLimits(-100,179);
   
 
 }
@@ -288,24 +288,47 @@ void loop() {
   brad.write(0);
   
   int M1 = altitude.output-roll.output+pitch.output-yaw.output;
+  int M2 = altitude.output+roll.output+pitch.output+yaw.output;
+  int M3 = altitude.output+roll.output-pitch.output-yaw.output;  
+  int M4 = altitude.output-roll.output-pitch.output+yaw.output;  
+  
+  Serial.print("\nAltitude\n");
+  Serial.print(altitude.output);
+  Serial.print("\nRoll\n");
+  Serial.print(roll.output);
+  Serial.print("\nPitch\n");
+  Serial.print(pitch.output);
+  Serial.print("\nYaw\n");
+  Serial.print(yaw.output);  
+  
+  
+  Serial.print("\nM1\n");
+  Serial.print(altitude.output-roll.output+pitch.output-yaw.output);
+  Serial.print("\nM2\n");
+  Serial.print(altitude.output+roll.output+pitch.output+yaw.output);
+  Serial.print("\nM3\n");
+  Serial.print(altitude.output+roll.output-pitch.output-yaw.output);
+  Serial.print("\nM4\n");
+  Serial.print(altitude.output-roll.output-pitch.output+yaw.output);  
+  
   if(M1>179)
     M1 = 179;
   else if (M1<0)
     M1 = 0;  
 
-    int M2 = altitude.output+roll.output+pitch.output+yaw.output;
+
   if(M2>179)
     M2 = 179;
   else if (M2<0)
     M2 = 0;  
   
-  int M3 = altitude.output+roll.output-pitch.output-yaw.output;
+
   if(M3>179)
     M3 = 179;
   else if (M3<0)
     M3 = 0;  
 
-  int M4 = altitude.output-roll.output-pitch.output+yaw.output;
+
   if(M4>179)
     M4 = 179;
   else if (M4<0)
@@ -317,16 +340,8 @@ void loop() {
   brad.write(M4);
   
   
-  Serial.print("\nM1\n");
-  Serial.print(altitude.output-roll.output+pitch.output-yaw.output);
-  Serial.print("\M2\n");
-  Serial.print(altitude.output+roll.output+pitch.output+yaw.output);
-  Serial.print("\M3\n");
-  Serial.print(altitude.output+roll.output-pitch.output-yaw.output);
-  Serial.print("\nM4\n");
-  Serial.print(altitude.output-roll.output-pitch.output+yaw.output);  
+
   
-  delay(10);
   
 }
 
