@@ -178,10 +178,10 @@ void fetchcommands()
 
 void setup() {
   
-  roll.pid = new PID(&roll.input,&roll.output,&roll.setpoint,0,0,0,DIRECT);
-  yaw.pid = new PID(&yaw.input,&yaw.output,&yaw.setpoint,0,0,0,DIRECT);
-  pitch.pid = new PID(&pitch.input,&pitch.output,&pitch.setpoint,0,0,0,DIRECT);
-  altitude.pid = new PID(&altitude.input,&altitude.output,&altitude.setpoint,0,0,0,DIRECT);
+  roll.pid = new PID(&roll.input,&roll.output,&roll.setpoint,1,0.01,0.1,DIRECT);
+  yaw.pid = new PID(&yaw.input,&yaw.output,&yaw.setpoint,1,0.01,0.1,DIRECT);
+  pitch.pid = new PID(&pitch.input,&pitch.output,&pitch.setpoint,1,0.01,0.1,DIRECT);
+  altitude.pid = new PID(&altitude.input,&altitude.output,&altitude.setpoint,1,0.01,0.1,DIRECT);
   
   
   roll.pid->SetMode(AUTOMATIC);
@@ -232,8 +232,10 @@ void update()
   sensors_vec_t   orientation;
   if (dof.accelGetOrientation(&accel_event, &orientation))
   {
-    roll.input = orientation.roll;
-    pitch.input = orientation.pitch;
+    if(orientation.roll!=-100&&orientation.roll!=179)
+      pitch.input = orientation.roll;
+    if(orientation.pitch!=-100&&orientation.pitch!=179)
+      roll.input = orientation.pitch;
   }
   mag.getEvent(&mag_event);
   if (dof.magGetOrientation(SENSOR_AXIS_Z, &mag_event, &orientation))
@@ -262,7 +264,6 @@ void update()
  
   }
 
-  altitude.input = 0;
 
   roll.pid->Compute();
   roll.pid->SetOutputLimits(-100,179);
@@ -286,20 +287,22 @@ void loop() {
   flavio.write(0);
   blake.write(0);
   brad.write(0);
+
+  Serial.print("\nKp\n");
   
-  int M1 = altitude.output-roll.output+pitch.output-yaw.output;
-  int M2 = altitude.output+roll.output+pitch.output+yaw.output;
-  int M3 = altitude.output+roll.output-pitch.output-yaw.output;  
-  int M4 = altitude.output-roll.output-pitch.output+yaw.output;  
+  int M1 = altitude.output-roll.output+pitch.output;//-yaw.output;
+  int M2 = altitude.output+roll.output+pitch.output;//+yaw.output;
+  int M3 = altitude.output+roll.output-pitch.output;//-yaw.output;  
+  int M4 = altitude.output-roll.output-pitch.output;//+yaw.output;  
   
   Serial.print("\nAltitude\n");
-  Serial.print(altitude.output);
+  Serial.print(altitude.input);
   Serial.print("\nRoll\n");
-  Serial.print(roll.output);
+  Serial.print(roll.input);
   Serial.print("\nPitch\n");
-  Serial.print(pitch.output);
+  Serial.print(pitch.input);
   Serial.print("\nYaw\n");
-  Serial.print(yaw.output);  
+  Serial.print(yaw.input);  
   
   
   Serial.print("\nM1\n");
@@ -344,5 +347,6 @@ void loop() {
   
   
 }
+
 
 

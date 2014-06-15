@@ -714,7 +714,7 @@ namespace Server
 				
 				if(now>timeout)
 				{
-					//dict.Remove(p);
+					dict.Remove(p);
 					
 				}
 				else
