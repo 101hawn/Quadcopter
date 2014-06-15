@@ -1,7 +1,29 @@
+#include <Math.h>
+
+#include <Wire.h>
+
+#if ARDUINO >= 100
+  #include "Arduino.h"
+#else
+  #include "WProgram.h"
+#endif
+
 
 #include <Servo.h>
 #include <Base64.h>
 #include <PID_v1.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_LSM303_U.h>
+#include <Adafruit_BMP085_U.h>
+#include <Adafruit_L3GD20_U.h>
+#include <Adafruit_10DOF.h>
+
+Adafruit_10DOF                dof   = Adafruit_10DOF();
+Adafruit_LSM303_Accel_Unified accel = Adafruit_LSM303_Accel_Unified(30301);
+Adafruit_LSM303_Mag_Unified   mag   = Adafruit_LSM303_Mag_Unified(30302);
+Adafruit_BMP085_Unified       bmp   = Adafruit_BMP085_Unified(18001);
+float seaLevelPressure = SENSORS_PRESSURE_SEALEVELHPA;
+bool firstrun = true;
 
 #define maxcommandlen 12
 
@@ -167,37 +189,144 @@ void setup() {
   pitch.pid->SetMode(AUTOMATIC);
   altitude.pid->SetMode(AUTOMATIC);
   
-  franco.attach(6);
-  flavio.attach(7);
-  blake.attach(8);
-  brad.attach(9);
+  franco.attach(3);
+  flavio.attach(2);
+  blake.attach(5);
+  brad.attach(4);
   
   franco.write(0); 
   flavio.write(0);
   blake.write(0);
   brad.write(0);
   Serial.begin(9600);
-  delay(500);
+  if(!accel.begin())
+  {
+    /* There was a problem detecting the LSM303 ... check your connections */
+    Serial.println(F("Ooops, no LSM303 detected ... Check your wiring!"));
+    while(1);
+  }
+    if(!mag.begin())
+  {
+    /* There was a problem detecting the LSM303 ... check your connections */
+    Serial.println("Ooops, no LSM303 detected ... Check your wiring!");
+    while(1);
+  }
+  if(!bmp.begin())
+  {
+    /* There was a problem detecting the BMP180 ... check your connections */
+    Serial.println("Ooops, no BMP180 detected ... Check your wiring!");
+    while(1);
+  }
+  delay(5000);
+  franco.write(0); 
+  flavio.write(0);
+  blake.write(0);
+  brad.write(0);
 }
 void update()
 {
+  sensors_event_t accel_event;
+  sensors_event_t mag_event;
+  sensors_event_t bmp_event;
+  accel.getEvent(&accel_event);
+  sensors_vec_t   orientation;
+  if (dof.accelGetOrientation(&accel_event, &orientation))
+  {
+    roll.input = orientation.roll;
+    pitch.input = orientation.pitch;
+  }
+  mag.getEvent(&mag_event);
+  if (dof.magGetOrientation(SENSOR_AXIS_Z, &mag_event, &orientation))
+  {
+    yaw.input = orientation.heading-180;
+  }
+    bmp.getEvent(&bmp_event);
+  if (bmp_event.pressure)
+  {
+    float temperature;
+    bmp.getTemperature(&temperature);
+    if(firstrun)
+    {
+      seaLevelPressure = bmp_event.pressure;
+      firstrun = false;
+      
+      
+    }
+    else
+    {
+    
+    altitude.input = bmp.pressureToAltitude(seaLevelPressure,
+                                        bmp_event.pressure,
+                                       temperature); 
+    }
+ 
+  }
+
+  altitude.input = 0;
 
   roll.pid->Compute();
+  roll.pid->SetOutputLimits(0,179);
   altitude.pid->Compute();
+  altitude.pid->SetOutputLimits(0,179);
   yaw.pid->Compute();
+  yaw.pid->SetOutputLimits(0,179);
   pitch.pid->Compute();
+  pitch.pid->SetOutputLimits(0,179);
+  
+
 }
 
 
 void loop() {
   fetchcommands();  
   update();
-  franco.write(80); //roll.setpoint); 
-  flavio.write(80);//altitude.setpoint);
-  blake.write(80);//yaw.setpoint);
-  brad.write(80);//pitch.setpoint);
   
   
+  franco.write(0); 
+  flavio.write(0);
+  blake.write(0);
+  brad.write(0);
+  
+  int M1 = altitude.output-roll.output+pitch.output-yaw.output;
+  if(M1>179)
+    M1 = 179;
+  else if (M1<0)
+    M1 = 0;  
+
+    int M2 = altitude.output+roll.output+pitch.output+yaw.output;
+  if(M2>179)
+    M2 = 179;
+  else if (M2<0)
+    M2 = 0;  
+  
+  int M3 = altitude.output+roll.output-pitch.output-yaw.output;
+  if(M3>179)
+    M3 = 179;
+  else if (M3<0)
+    M3 = 0;  
+
+  int M4 = altitude.output-roll.output-pitch.output+yaw.output;
+  if(M4>179)
+    M4 = 179;
+  else if (M4<0)
+    M4 = 0;  
+    
+  franco.write(M1); 
+  flavio.write(M2);
+  blake.write(M3);
+  brad.write(M4);
+  
+  
+  Serial.print("\nM1\n");
+  Serial.print(altitude.output-roll.output+pitch.output-yaw.output);
+  Serial.print("\M2\n");
+  Serial.print(altitude.output+roll.output+pitch.output+yaw.output);
+  Serial.print("\M3\n");
+  Serial.print(altitude.output+roll.output-pitch.output-yaw.output);
+  Serial.print("\nM4\n");
+  Serial.print(altitude.output-roll.output-pitch.output+yaw.output);  
+  
+  delay(10);
   
 }
 
