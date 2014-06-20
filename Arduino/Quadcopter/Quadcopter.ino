@@ -178,10 +178,15 @@ void fetchcommands()
 
 void setup() {
   
-  roll.pid = new PID(&roll.input,&roll.output,&roll.setpoint,1,0.01,0.1,DIRECT);
-  yaw.pid = new PID(&yaw.input,&yaw.output,&yaw.setpoint,1,0.01,0.1,DIRECT);
-  pitch.pid = new PID(&pitch.input,&pitch.output,&pitch.setpoint,1,0.01,0.1,DIRECT);
-  altitude.pid = new PID(&altitude.input,&altitude.output,&altitude.setpoint,1,0.01,0.1,DIRECT);
+  //roll.pid = new PID(&roll.input,&roll.output,&roll.setpoint,0.075,0.1,0,DIRECT);
+  //yaw.pid = new PID(&yaw.input,&yaw.output,&yaw.setpoint,0.075,0.1,0,DIRECT);
+  //pitch.pid = new PID(&pitch.input,&pitch.output,&pitch.setpoint,0.075,0.1,0,DIRECT);
+  //altitude.pid = new PID(&altitude.input,&altitude.output,&altitude.setpoint,0,0,0,DIRECT);
+  
+  roll.pid = new PID(&roll.input,&roll.output,&roll.setpoint,0,0,0,DIRECT);
+  yaw.pid = new PID(&yaw.input,&yaw.output,&yaw.setpoint,0,0,0,DIRECT);
+  pitch.pid = new PID(&pitch.input,&pitch.output,&pitch.setpoint,0,0,0,DIRECT);
+  altitude.pid = new PID(&altitude.input,&altitude.output,&altitude.setpoint,0,1,0,DIRECT);
   
   
   roll.pid->SetMode(AUTOMATIC);
@@ -222,6 +227,7 @@ void setup() {
   flavio.write(0);
   blake.write(0);
   brad.write(0);
+  altitude.setpoint = 10;
 }
 void update()
 {
@@ -264,11 +270,12 @@ void update()
  
   }
 
+  
 
   roll.pid->Compute();
   roll.pid->SetOutputLimits(-100,179);
   altitude.pid->Compute();
-  altitude.pid->SetOutputLimits(-100,179);
+  altitude.pid->SetOutputLimits(0,100);
   yaw.pid->Compute();
   yaw.pid->SetOutputLimits(-100,179);
   pitch.pid->Compute();
@@ -281,6 +288,7 @@ void update()
 void loop() {
   fetchcommands();  
   update();
+  
   
   
   franco.write(0); 
@@ -341,7 +349,7 @@ void loop() {
   flavio.write(M2);
   blake.write(M3);
   brad.write(M4);
-  
+  delay(10);
   
 
   
